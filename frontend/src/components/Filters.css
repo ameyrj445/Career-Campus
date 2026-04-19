@@ -1,0 +1,260 @@
+.filters {
+  background-color: #fff;
+  padding: 1.5rem;
+  color: #000;
+  border: 4px solid #000;
+  box-shadow: 10px 10px 0 #000;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.sticky-filters {
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+}
+
+.filters h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #000;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.filter-group, .filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label, .filter-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.filter-group select,
+.filter-group input,
+.number-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #000;
+  background-color: #fff;
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.filter-group select:focus,
+.filter-group input:focus,
+.number-input:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.checkbox-group {
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #000;
+}
+
+.checkbox-header label {
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.checkbox-options {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.checkbox-options.expanded {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.checkbox-options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.checkbox-options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.checkbox-options::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  color: #000;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.checkbox-label:hover {
+  color: #000;
+  font-weight: 700;
+}
+
+.checkbox-label.selected {
+  color: #000;
+  font-weight: 700;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border: 2px solid #000;
+  width: auto;
+  min-width: 16px;
+  height: 16px;
+}
+
+.filter-actions, .filter-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-actions button,
+.apply-filters,
+.clear-filters {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  border: 3px solid #000;
+  box-shadow: 5px 5px 0 #000;
+}
+
+.apply-filters {
+  background-color: #000;
+  color: #fff;
+}
+
+.apply-filters:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #000;
+}
+
+.clear-filters,
+.filter-actions button {
+  background-color: #fff;
+  color: #000;
+}
+
+.clear-filters:hover,
+.filter-actions button:hover {
+  background-color: #000;
+  color: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #000;
+}
+
+.filter-actions button:active,
+.apply-filters:active,
+.clear-filters:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.selected-item {
+  display: inline-flex;
+  align-items: center;
+  background: #000;
+  color: #fff;
+  padding: 2px 8px;
+  margin: 2px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.selected-item button {
+  background: none;
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.selected-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 2px solid #000;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+.clear-value {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #000;
+  padding: 0 0.5rem;
+}
+
+.clear-value:hover {
+  color: #ff0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters {
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+
+  .checkbox-options.expanded {
+    max-height: 150px;
+  }
+}

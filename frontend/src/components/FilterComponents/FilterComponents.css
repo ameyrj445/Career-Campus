@@ -1,0 +1,213 @@
+/* SearchableDropdown styles with Montserrat font */
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+.searchable-dropdown {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+  min-height: 45px;
+}
+
+.selected-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.selected-item {
+  display: inline-flex;
+  align-items: center;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+  font-weight: 800;
+}
+
+.selected-item button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.clear-all-button {
+  background: #333;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  border-radius: 3px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #f8f8f8;
+  border: 2px solid #000;
+  margin-top: 0.5rem;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 5px 5px 0 #000;
+  text-align: left !important;
+}
+
+.dropdown-content input {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-bottom: 2px solid #000;
+  background: #fff;
+  color: #000;
+  outline: none;
+  font-weight: 700;
+  text-align: left !important;
+}
+
+.options-list {
+  padding: 0.5rem 0;
+  text-align: left !important;
+}
+
+.option {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000;
+  transition: all 0.2s;
+  text-align: left !important;
+  justify-content: flex-start !important;
+  width: 100%;
+}
+
+.option-text {
+  display: inline-block;
+  flex-grow: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.option input[type="checkbox"] {
+  margin-right: 8px;
+  flex-shrink: 0;
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 0;
+}
+
+.option:hover {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+.option.selected {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+/* RadioGroup styles */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.radio-option:hover {
+  background: #f0f0f0;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+  color: #000;
+  font-weight: bold;
+}
+
+.radio-option input[type="radio"]:checked ~ .radio-option {
+  border-color: #000;
+  background: #f0f0f0;
+}
+
+/* Checkbox styling */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.checkbox-option input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+  min-width: 16px;
+  height: 16px;
+  accent-color: #d4af37;
+}
+
+.checkbox-option:hover {
+  color: #d4af37;
+}
+
+/* Common styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}

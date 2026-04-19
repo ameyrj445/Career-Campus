@@ -1,0 +1,516 @@
+# SQL Queries in the Job/Internship Portal Project
+
+This document provides a comprehensive list of all SQL queries used in the Job/Internship Portal project, organized by functionality. Each query is explained with its purpose, structure, and how it's used in the application.
+
+## Table of Contents
+1. [Database Schema](#database-schema)
+2. [Job Listing Queries](#job-listing-queries)
+3. [Internship Listing Queries](#internship-listing-queries)
+4. [Filter Queries](#filter-queries)
+5. [Search Queries](#search-queries)
+6. [Utility Queries](#utility-queries)
+
+## Database Schema
+
+The project uses two main tables:
+
+### job_listings Table
+```sql
+CREATE TABLE job_listings (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title_and_role VARCHAR(255) NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
+    location VARCHAR(255),
+    category VARCHAR(100),
+    salary_LPA DECIMAL(10,2),
+    experience VARCHAR(50),
+    education_level VARCHAR(100),
+    date_posted DATE,
+    tags TEXT,
+    description TEXT,
+    requirements TEXT
+);
+```
+
+### internship_listings Table
+```sql
+CREATE TABLE internship_listings (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    TitleAndRole VARCHAR(255) NOT NULL,
+    CompanyName VARCHAR(255) NOT NULL,
+    Location VARCHAR(255),
+    Category VARCHAR(100),
+    Stipend DECIMAL(10,2),
+    Duration INT,
+    Remote BOOLEAN,
+    DatePosted DATE,
+    Tags TEXT,
+    Description TEXT,
+    Requirements TEXT
+);
+```
+
+## Job Listing Queries
+
+### Get All Jobs (with Filters)
+This query retrieves job listings with optional filters. The base query is enhanced with conditions based on user-selected filters.
+
+**Base Query:**
+```sql
+SELECT * FROM job_listings WHERE 1=1
+```
+
+**With Location Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (location = ? OR location = ? OR ...)
+ORDER BY date_posted DESC
+```
+
+**With Salary Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND salary_LPA >= ?
+ORDER BY date_posted DESC
+```
+
+**With Category Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (category LIKE ? OR category LIKE ? OR ...)
+ORDER BY date_posted DESC
+```
+
+**With Company Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (company_name LIKE ? OR company_name LIKE ? OR ...)
+ORDER BY date_posted DESC
+```
+
+**With Experience Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND experience LIKE ?
+ORDER BY date_posted DESC
+```
+
+**With Remote Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND remote = ?
+ORDER BY date_posted DESC
+```
+
+**With Education Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (education_level LIKE ? OR education_level LIKE ? OR ...)
+ORDER BY date_posted DESC
+```
+
+**With Tags Filter:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (
+    (tags LIKE ? OR tags LIKE ? OR ...) -- For tag at beginning
+    OR (tags LIKE ? OR tags LIKE ? OR ...) -- For tag in middle
+    OR (tags LIKE ? OR tags LIKE ? OR ...) -- For tag at end
+    OR (tags = ? OR tags = ? OR ...) -- For exact match
+)
+ORDER BY date_posted DESC
+```
+
+**Complete Example with Multiple Filters:**
+```sql
+SELECT * FROM job_listings 
+WHERE 1=1 
+AND (location = 'Bangalore, India' OR location = 'Mumbai, India')
+AND salary_LPA >= 20
+AND (category LIKE '%Technology%' OR category LIKE '%IT%')
+AND (company_name LIKE '%Google%' OR company_name LIKE '%Microsoft%')
+AND experience LIKE '%3-5 years%'
+AND (
+    tags LIKE 'React,%' OR 
+    tags LIKE '%, React,%' OR 
+    tags LIKE '%, React' OR 
+    tags = 'React'
+)
+ORDER BY date_posted DESC
+```
+
+### Get Job by ID
+Retrieves a specific job listing by its ID.
+
+```sql
+SELECT * FROM job_listings WHERE id = ?
+```
+
+### Get Distinct Job Categories
+Retrieves all unique categories from job listings.
+
+```sql
+SELECT DISTINCT category
+FROM job_listings
+ORDER BY category
+```
+
+### Get Distinct Job Locations
+Retrieves all unique locations from job listings.
+
+```sql
+SELECT DISTINCT location
+FROM job_listings
+ORDER BY location
+```
+
+### Get Distinct Job Companies
+Retrieves all unique companies from job listings.
+
+```sql
+SELECT DISTINCT company_name
+FROM job_listings
+ORDER BY company_name
+```
+
+### Get All Unique Job Tags
+Retrieves all unique tags from job listings. This query gets the tags column and then processes it in JavaScript to extract individual tags.
+
+```sql
+SELECT DISTINCT tags FROM job_listings WHERE tags IS NOT NULL
+```
+
+## Internship Listing Queries
+
+### Get All Internships (with Filters)
+Similar to the job listings query, this retrieves internship listings with optional filters.
+
+**Base Query:**
+```sql
+SELECT * FROM internship_listings WHERE 1=1
+```
+
+**With Location Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (Location = ? OR Location = ? OR ...)
+ORDER BY DatePosted DESC
+```
+
+**With Stipend Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND Stipend >= ?
+ORDER BY DatePosted DESC
+```
+
+**With Category Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (Category LIKE ? OR Category LIKE ? OR ...)
+ORDER BY DatePosted DESC
+```
+
+**With Company Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (CompanyName LIKE ? OR CompanyName LIKE ? OR ...)
+ORDER BY DatePosted DESC
+```
+
+**With Duration Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (Duration = ? OR Duration = ? OR ...)
+ORDER BY DatePosted DESC
+```
+
+**With Remote Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND Remote = ?
+ORDER BY DatePosted DESC
+```
+
+**With Tags Filter:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (
+    (Tags LIKE ? OR Tags LIKE ? OR ...) -- For tag at beginning
+    OR (Tags LIKE ? OR Tags LIKE ? OR ...) -- For tag in middle
+    OR (Tags LIKE ? OR Tags LIKE ? OR ...) -- For tag at end
+    OR (Tags = ? OR Tags = ? OR ...) -- For exact match
+)
+ORDER BY DatePosted DESC
+```
+
+**Complete Example with Multiple Filters:**
+```sql
+SELECT * FROM internship_listings 
+WHERE 1=1 
+AND (Location = 'Bangalore, India' OR Location = 'Mumbai, India')
+AND Stipend >= 10000
+AND (Category LIKE '%Technology%' OR Category LIKE '%IT%')
+AND (CompanyName LIKE '%Google%' OR CompanyName LIKE '%Microsoft%')
+AND (Duration = 3 OR Duration = 6)
+AND Remote = 1
+AND (
+    Tags LIKE 'React,%' OR 
+    Tags LIKE '%, React,%' OR 
+    Tags LIKE '%, React' OR 
+    Tags = 'React'
+)
+ORDER BY DatePosted DESC
+```
+
+### Get Internship by ID
+Retrieves a specific internship listing by its ID.
+
+```sql
+SELECT * FROM internship_listings WHERE ID = ?
+```
+
+### Get Distinct Internship Categories
+Retrieves all unique categories from internship listings.
+
+```sql
+SELECT DISTINCT Category AS category
+FROM internship_listings
+ORDER BY category
+```
+
+### Get Distinct Internship Locations
+Retrieves all unique locations from internship listings.
+
+```sql
+SELECT DISTINCT Location AS location
+FROM internship_listings
+ORDER BY location
+```
+
+### Get Distinct Internship Companies
+Retrieves all unique companies from internship listings.
+
+```sql
+SELECT DISTINCT CompanyName AS company_name
+FROM internship_listings
+ORDER BY company_name
+```
+
+### Get Distinct Internship Durations
+Retrieves all unique durations from internship listings.
+
+```sql
+SELECT DISTINCT Duration FROM internship_listings WHERE Duration IS NOT NULL ORDER BY Duration
+```
+
+### Get All Unique Internship Tags
+Retrieves all unique tags from internship listings.
+
+```sql
+SELECT DISTINCT Tags AS tags FROM internship_listings WHERE Tags IS NOT NULL
+```
+
+## Filter Queries
+
+### Get Job Filter Options
+Retrieves all filter options for jobs in a single query.
+
+```sql
+-- Get all categories
+SELECT DISTINCT category FROM job_listings ORDER BY category;
+
+-- Get all locations
+SELECT DISTINCT location FROM job_listings WHERE location IS NOT NULL AND location != "" ORDER BY location;
+
+-- Get all companies
+SELECT DISTINCT company_name FROM job_listings ORDER BY company_name;
+
+-- Get all education levels
+SELECT DISTINCT education_level FROM job_listings WHERE education_level IS NOT NULL ORDER BY education_level;
+```
+
+### Get Internship Filter Options
+Retrieves all filter options for internships in a single query.
+
+```sql
+-- Get all categories
+SELECT DISTINCT Category FROM internship_listings ORDER BY Category;
+
+-- Get all locations
+SELECT DISTINCT Location FROM internship_listings WHERE Location IS NOT NULL AND Location != "" ORDER BY Location;
+
+-- Get all companies
+SELECT DISTINCT CompanyName FROM internship_listings ORDER BY CompanyName;
+
+-- Get all durations
+SELECT DISTINCT Duration FROM internship_listings WHERE Duration IS NOT NULL ORDER BY Duration;
+```
+
+## Search Queries
+
+### Search Across Both Jobs and Internships
+This query searches for a term across both job and internship listings, combining the results with a UNION.
+
+```sql
+SELECT 
+    'internship' as type,
+    ID as id,
+    TitleAndRole as title,
+    CompanyName as company,
+    Location as location,
+    Category as category,
+    Stipend as compensation,
+    DatePosted as posted_date,
+    Tags as tags
+FROM internship_listings
+WHERE 
+    TitleAndRole LIKE ? OR
+    CompanyName LIKE ? OR
+    Category LIKE ? OR
+    Tags LIKE ?
+UNION ALL
+SELECT 
+    'job' as type,
+    id,
+    title_and_role as title,
+    company_name as company,
+    location,
+    category,
+    salary_LPA as compensation,
+    date_posted as posted_date,
+    tags
+FROM job_listings
+WHERE 
+    title_and_role LIKE ? OR
+    company_name LIKE ? OR
+    category LIKE ? OR
+    tags LIKE ?
+ORDER BY posted_date DESC
+```
+
+## Utility Queries
+
+### Get All Categories (Combined)
+Retrieves all unique categories from both job and internship listings.
+
+```sql
+SELECT DISTINCT category FROM job_listings
+UNION
+SELECT DISTINCT Category AS category FROM internship_listings
+ORDER BY category
+```
+
+### Get All Locations (Combined)
+Retrieves all unique locations from both job and internship listings.
+
+```sql
+SELECT DISTINCT location FROM job_listings
+UNION
+SELECT DISTINCT Location AS location FROM internship_listings
+ORDER BY location
+```
+
+### Get All Companies (Combined)
+Retrieves all unique companies from both job and internship listings.
+
+```sql
+SELECT DISTINCT CompanyName AS company_name FROM internship_listings
+UNION
+SELECT DISTINCT company_name FROM job_listings
+ORDER BY company_name
+```
+
+## Query Implementation Details
+
+### Dynamic Query Building
+The application builds SQL queries dynamically based on user-selected filters. This is done by:
+
+1. Starting with a base query: `SELECT * FROM job_listings WHERE 1=1`
+2. Adding conditions based on filters: `AND (condition1) AND (condition2) ...`
+3. Adding parameters to a values array for prepared statements
+4. Executing the final query with the values array
+
+### Prepared Statements
+All queries use prepared statements to prevent SQL injection:
+
+```javascript
+const [rows] = await pool.execute(query, values);
+```
+
+### Location Handling
+Location values are standardized to the format "city, India" for consistent filtering:
+
+```javascript
+// If location doesn't already end with India, add it for the search
+if (!/,\s*India$/i.test(cleanLoc)) {
+    values.push(`${cleanLoc}, India`);
+} else {
+    values.push(cleanLoc);
+}
+```
+
+### Tag Filtering
+Tag filtering is complex because tags are stored as comma-separated strings. The query handles different positions of tags:
+
+```javascript
+// Match at the beginning
+tagConditions.push('tags LIKE ?');
+tagValues.push(`${tag},%`);
+
+// Match in the middle
+tagConditions.push('tags LIKE ?');
+tagValues.push(`%, ${tag},%`);
+
+// Match at the end
+tagConditions.push('tags LIKE ?');
+tagValues.push(`%, ${tag}`);
+
+// Match if it's the only tag
+tagConditions.push('tags = ?');
+tagValues.push(tag);
+```
+
+## Performance Considerations
+
+1. **Indexes**: The database should have indexes on frequently filtered columns:
+   ```sql
+   CREATE INDEX idx_job_location ON job_listings(location);
+   CREATE INDEX idx_job_category ON job_listings(category);
+   CREATE INDEX idx_job_company ON job_listings(company_name);
+   CREATE INDEX idx_job_date ON job_listings(date_posted);
+   
+   CREATE INDEX idx_internship_location ON internship_listings(Location);
+   CREATE INDEX idx_internship_category ON internship_listings(Category);
+   CREATE INDEX idx_internship_company ON internship_listings(CompanyName);
+   CREATE INDEX idx_internship_date ON internship_listings(DatePosted);
+   ```
+
+2. **Text Searching**: For better performance with tag filtering, consider using a full-text search index:
+   ```sql
+   ALTER TABLE job_listings ADD FULLTEXT(tags);
+   ALTER TABLE internship_listings ADD FULLTEXT(Tags);
+   ```
+
+3. **Query Optimization**: The application uses `ORDER BY date_posted DESC` to show the most recent listings first, which benefits from an index on the date column.
+
+## Conclusion
+
+The SQL queries in this project are designed to provide flexible filtering and searching capabilities across job and internship listings. The dynamic query building approach allows for complex combinations of filters while maintaining security through prepared statements.
+
+The standardization of location data and special handling for tag filtering ensures consistent results across the application. Performance considerations like indexing are important for maintaining good response times as the database grows.

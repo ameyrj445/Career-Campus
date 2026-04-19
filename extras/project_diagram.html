@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job/Internship Portal - Project Diagram</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            margin: 25px 0 15px;
+            color: #333;
+            border-left: 4px solid #000;
+            padding-left: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        /* Diagram Styles */
+        .diagram {
+            width: 100%;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #000;
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .tier {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .component {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #000;
+            background-color: #fff;
+            text-align: center;
+            position: relative;
+        }
+        
+        .component h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .component p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .arrow {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(180deg);
+            bottom: -30px;
+            left: calc(50% - 10px);
+            z-index: 1;
+        }
+        
+        .arrow-line {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: #000;
+            bottom: -20px;
+            left: calc(50% - 1px);
+        }
+        
+        .horizontal-arrow {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+            right: -30px;
+            top: calc(50% - 10px);
+            z-index: 1;
+        }
+        
+        .horizontal-line {
+            position: absolute;
+            height: 2px;
+            width: 20px;
+            background-color: #000;
+            right: -20px;
+            top: calc(50% - 1px);
+        }
+        
+        .database {
+            background-color: #f0f0f0;
+            border-radius: 0;
+        }
+        
+        .frontend {
+            background-color: #e6f7ff;
+        }
+        
+        .backend {
+            background-color: #e6ffe6;
+        }
+        
+        /* Data Flow Diagram */
+        .data-flow {
+            margin-top: 50px;
+        }
+        
+        .flow-step {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #000;
+            background-color: #fff;
+            box-shadow: 5px 5px 0 #000;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        /* Card Component Diagram */
+        .card-diagram {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+        }
+        
+        .card-side {
+            width: 250px;
+            height: 350px;
+            border: 3px solid #000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        .card-front {
+            background-color: white;
+        }
+        
+        .card-back {
+            background-color: white;
+        }
+        
+        .card-header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .card-header h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .card-header p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .card-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .card-detail {
+            font-size: 14px;
+        }
+        
+        .card-tags {
+            border-top: 2px solid #000;
+            padding-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: auto;
+        }
+        
+        .card-tag {
+            background-color: #000;
+            color: white;
+            padding: 3px 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .card-back-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-description {
+            flex: 1;
+            font-size: 14px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .apply-btn {
+            background-color: white;
+            border: 2px solid #000;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 3px 3px 0 #000;
+            cursor: pointer;
+        }
+        
+        .flip-arrow {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        /* Filter Component Diagram */
+        .filter-diagram {
+            display: flex;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .filter-section {
+            flex: 1;
+            border: 3px solid #000;
+            padding: 20px;
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        .filter-header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .filter-group-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 15px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .filter-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #000;
+            display: inline-block;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .filter-button {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 0 #000;
+        }
+        
+        .apply-filter {
+            background-color: #000;
+            color: white;
+        }
+        
+        .clear-filter {
+            background-color: white;
+        }
+        
+        /* Legend */
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            border: 2px solid #000;
+            background-color: #f9f9f9;
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #000;
+        }
+        
+        .frontend-color {
+            background-color: #e6f7ff;
+        }
+        
+        .backend-color {
+            background-color: #e6ffe6;
+        }
+        
+        .database-color {
+            background-color: #f0f0f0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tier {
+                flex-direction: column;
+            }
+            
+            .card-diagram {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-diagram {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job/Internship Portal - Project Architecture</h1>
+        
+        <p>This diagram illustrates the architecture and data flow of the Job/Internship Portal application. The application follows a three-tier architecture with a React frontend, Node.js/Express backend, and MySQL database.</p>
+        
+        <h2>System Architecture</h2>
+        <div class="diagram architecture">
+            <div class="tier">
+                <div class="component frontend">
+                    <h3>Frontend (React)</h3>
+                    <p>User Interface, Filtering, Card Display</p>
+                    <div class="arrow"></div>
+                    <div class="arrow-line"></div>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <div class="component backend">
+                    <h3>Backend (Node.js/Express)</h3>
+                    <p>API Endpoints, Business Logic, Data Processing</p>
+                    <div class="arrow"></div>
+                    <div class="arrow-line"></div>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <div class="component database">
+                    <h3>Database (MySQL)</h3>
+                    <p>job_listings, internship_listings tables</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Component Structure</h2>
+        <div class="diagram">
+            <div class="tier">
+                <div class="component frontend">
+                    <h3>App.js</h3>
+                    <p>Main Application Component</p>
+                    <div class="arrow"></div>
+                    <div class="arrow-line"></div>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <div class="component frontend">
+                    <h3>JobContext.js</h3>
+                    <p>State Management, API Calls</p>
+                    <div class="arrow"></div>
+                    <div class="arrow-line"></div>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <div class="component frontend" style="flex: 1;">
+                    <h3>JobsPage.js</h3>
+                    <p>Jobs Listing Page</p>
+                    <div class="horizontal-arrow"></div>
+                    <div class="horizontal-line"></div>
+                </div>
+                <div class="component frontend" style="flex: 1;">
+                    <h3>InternshipsPage.js</h3>
+                    <p>Internships Listing Page</p>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <div class="component frontend" style="flex: 1;">
+                    <h3>JobFilters.js</h3>
+                    <p>Filtering UI for Jobs</p>
+                </div>
+                <div class="component frontend" style="flex: 1;">
+                    <h3>JobCard.js</h3>
+                    <p>Job Card Component</p>
+                </div>
+                <div class="component frontend" style="flex: 1;">
+                    <h3>InternshipFilters.js</h3>
+                    <p>Filtering UI for Internships</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Data Flow</h2>
+        <div class="diagram data-flow">
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>User Interaction</h3>
+                    <p>User visits the Jobs or Internships page and may apply filters</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Frontend Request</h3>
+                    <p>React components make API calls to the backend with filter parameters</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Backend Processing</h3>
+                    <p>Express routes handle requests and query the database with filter conditions</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Database Query</h3>
+                    <p>SQL queries filter data based on user selections (location, tags, salary, etc.)</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Response Processing</h3>
+                    <p>Backend formats database results and sends JSON response</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>UI Rendering</h3>
+                    <p>React components render job/internship cards with the filtered data</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Card Component Design</h2>
+        <div class="card-diagram">
+            <div class="card-side card-front">
+                <div class="flip-arrow">↻</div>
+                <div class="card-header">
+                    <h3>Software Engineer</h3>
+                    <p>Google</p>
+                </div>
+                <div class="card-details">
+                    <div class="card-detail">📍 Bangalore</div>
+                    <div class="card-detail">🏢 Technology</div>
+                    <div class="card-detail">💰 ₹30 LPA</div>
+                </div>
+                <div class="card-tags">
+                    <div class="card-tag">React</div>
+                    <div class="card-tag">Node.js</div>
+                    <div class="card-tag">AWS</div>
+                </div>
+            </div>
+            
+            <div class="card-side card-back">
+                <div class="flip-arrow">↻</div>
+                <div class="card-back-content">
+                    <div class="card-header">
+                        <h3>Software Engineer</h3>
+                        <p>Google</p>
+                    </div>
+                    <div class="card-description">
+                        <p>We are looking for a talented Software Engineer to join our team. You will be responsible for developing and maintaining web applications...</p>
+                        <p>Requirements: 3+ years of experience, Bachelor's degree in Computer Science.</p>
+                    </div>
+                    <div class="apply-btn">Apply Now</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Filter Component Design</h2>
+        <div class="filter-diagram">
+            <div class="filter-section">
+                <div class="filter-header">Filters</div>
+                
+                <div class="filter-group">
+                    <div class="filter-group-header">
+                        <span>Location</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>Bangalore</span>
+                        </div>
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>Mumbai</span>
+                        </div>
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>Delhi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-group-header">
+                        <span>Tags</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>React</span>
+                        </div>
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="filter-option">
+                            <div class="filter-checkbox"></div>
+                            <span>AWS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-buttons">
+                    <div class="filter-button apply-filter">Apply Filters</div>
+                    <div class="filter-button clear-filter">Clear</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color frontend-color"></div>
+                    <span>Frontend Components</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color backend-color"></div>
+                    <span>Backend Components</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color database-color"></div>
+                    <span>Database</span>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Key Features</h2>
+        <ul style="margin-left: 20px;">
+            <li>Flippable job/internship cards with front and back views</li>
+            <li>Advanced filtering system with multiple filter options</li>
+            <li>Location filtering with standardized "city, India" format</li>
+            <li>Tag filtering with horizontal scrolling in cards</li>
+            <li>Responsive design for mobile and desktop</li>
+            <li>Sharp-edged scrollbars for consistent UI</li>
+        </ul>
+        
+        <h2>Database Schema</h2>
+        <div style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border: 2px solid #000;">
+            <h3 style="margin-bottom: 15px;">job_listings Table</h3>
+            <pre style="background-color: #f0f0f0; padding: 15px; overflow-x: auto; border: 1px solid #ddd;">
+id INT PRIMARY KEY AUTO_INCREMENT,
+title_and_role VARCHAR(255) NOT NULL,
+company_name VARCHAR(255) NOT NULL,
+location VARCHAR(255),
+category VARCHAR(100),
+salary_LPA DECIMAL(10,2),
+experience VARCHAR(50),
+education_level VARCHAR(100),
+date_posted DATE,
+tags TEXT,
+description TEXT,
+requirements TEXT
+            </pre>
+            
+            <h3 style="margin: 20px 0 15px;">internship_listings Table</h3>
+            <pre style="background-color: #f0f0f0; padding: 15px; overflow-x: auto; border: 1px solid #ddd;">
+ID INT PRIMARY KEY AUTO_INCREMENT,
+TitleAndRole VARCHAR(255) NOT NULL,
+CompanyName VARCHAR(255) NOT NULL,
+Location VARCHAR(255),
+Category VARCHAR(100),
+Stipend DECIMAL(10,2),
+Duration INT,
+Remote BOOLEAN,
+DatePosted DATE,
+Tags TEXT,
+Description TEXT,
+Requirements TEXT
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
