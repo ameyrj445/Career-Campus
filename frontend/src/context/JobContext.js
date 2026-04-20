@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext, useCallback, useRef } from 'react';
 import axios from 'axios';
+import { useApi } from './ApiContext';
 
 const JobContext = createContext();
 
@@ -56,6 +57,8 @@ export const JobProvider = ({ children }) => {
         duration: []
     });
 
+    const { baseURL } = useApi();
+
     // Load metadata (filter options) on mount
     useEffect(() => {
         if (initialFetchDone.current.metadata) return;
@@ -63,10 +66,10 @@ export const JobProvider = ({ children }) => {
         const fetchMetadata = async () => {
             try {
                 const [companiesRes, locationsRes, categoriesRes, tagsRes] = await Promise.all([
-                    axios.get('http://localhost:5001/api/companies'),
-                    axios.get('http://localhost:5001/api/locations'),
-                    axios.get('http://localhost:5001/api/categories'),
-                    axios.get('http://localhost:5001/api/tags')
+                    axios.get(`${baseURL}/companies`),
+                    axios.get(`${baseURL}/locations`),
+                    axios.get(`${baseURL}/categories`),
+                    axios.get(`${baseURL}/tags`)
                 ]);
 
                 setCompanies(companiesRes.data);
@@ -113,7 +116,7 @@ export const JobProvider = ({ children }) => {
             }
 
             console.log(`Fetching ${view} with params:`, params);
-            const response = await axios.get(`http://localhost:5001/api/${endpoint}`, { params });
+            const response = await axios.get(`${baseURL}/${endpoint}`, { params });
 
             if (view === 'jobs') {
                 setJobs(response.data);

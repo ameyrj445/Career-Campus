@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useJobContext } from '../context/JobContext';
+import { useApi } from '../context/ApiContext';
 import SearchableDropdown from './FilterComponents/SearchableDropdown';
 import './Filters.css';
 
@@ -24,6 +25,7 @@ function JobFilters() {
     tags,
     filters: contextFilters
   } = useJobContext();
+  const { baseURL } = useApi();
 
   // State for job-specific filters
   const [categories, setCategories] = useState([]);
@@ -60,7 +62,7 @@ function JobFilters() {
   useEffect(() => {
     const fetchFilterOptions = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/job-filter-options');
+        const response = await fetch(`${baseURL}/job-filter-options`);
         const data = await response.json();
 
         if (data.categories) {

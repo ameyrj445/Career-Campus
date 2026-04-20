@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useJobContext } from '../context/JobContext';
+import { useApi } from '../context/ApiContext';
 import SearchableDropdown from './FilterComponents/SearchableDropdown';
 import './Filters.css';
 
@@ -25,6 +26,7 @@ function InternshipFilters() {
     tags,
     filters: contextFilters
   } = useJobContext();
+  const { baseURL } = useApi();
 
   // State for internship-specific filters
   const [categories, setCategories] = useState([]);
@@ -59,7 +61,7 @@ function InternshipFilters() {
   useEffect(() => {
     const fetchFilterOptions = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/internship-filter-options');
+        const response = await fetch(`${baseURL}/internship-filter-options`);
         const data = await response.json();
 
         if (data.categories) {

@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 export const ApiContext = createContext();
 
 export const ApiProvider = ({ children }) => {
-    const baseURL = 'http://localhost:5001/api';
+    const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5001/api';
     
     return (
         <ApiContext.Provider value={{ baseURL }}>
