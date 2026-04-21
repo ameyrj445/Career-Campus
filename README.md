@@ -108,10 +108,3 @@ The backend exposes the following endpoints:
 - If using a custom backend port, update the frontend API base URL accordingly.
 - The `backend` code reads MySQL credentials from environment variables.
 
-## Optional
-
-If you want to reinitialize Git for the repository:
-```bash
-cd c:\Users\Amey Raj Jain\Documents\PROJECTS\career compass\DBSMiniProject\DBSMiniProject
-git init
-```
