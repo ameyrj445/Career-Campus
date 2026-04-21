@@ -198,6 +198,67 @@
   box-shadow: none;
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+  .filters {
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .filters h3 {
+    font-size: 1.1rem;
+  }
+
+  .filter-group label,
+  .filter-section label {
+    font-size: 0.85rem;
+  }
+
+  .checkbox-label {
+    font-size: 0.85rem;
+  }
+
+  .filter-actions button,
+  .apply-filters,
+  .clear-filters {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    padding: 0.75rem;
+  }
+
+  .filters h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter-group,
+  .filter-section {
+    margin-bottom: 1rem;
+  }
+
+  .filter-group label,
+  .filter-section label {
+    font-size: 0.8rem;
+  }
+
+  .checkbox-label {
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+  }
+
+  .filter-actions button,
+  .apply-filters,
+  .clear-filters {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
 .filter-section {
   margin-bottom: 1.5rem;
 }

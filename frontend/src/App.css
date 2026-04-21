@@ -68,6 +68,45 @@ body {
   box-shadow: 7px 7px 0 #000000;
 }
 
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #000000;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border: 4px solid #000000;
+  box-shadow: 10px 10px 0 #000000;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.mobile-menu.active {
+  display: flex;
+}
+
+.mobile-link {
+  justify-content: center;
+  width: 100%;
+}
+
 /* Home page styles */
 .home {
   display: flex;
@@ -257,6 +296,18 @@ footer {
   .welcome {
     font-size: 4rem;
   }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
 
 @media (max-width: 640px) {
@@ -280,5 +331,16 @@ footer {
 
   .nav-link {
     padding: 0.5rem 1rem;
+  }
+
+  .jobs-list,
+  .internships-list {
+    grid-template-columns: 1fr;
+  }
+
+  .job-card-container {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 20px auto;
   }
 }
