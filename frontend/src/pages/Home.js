@@ -27,7 +27,7 @@ function Home() {
       </p>
       
       <footer>
-        © Developed By Amey
+        © Developed By Amey Raj Jain (ARJOIDIFY)
       </footer>
     </div>
   );
