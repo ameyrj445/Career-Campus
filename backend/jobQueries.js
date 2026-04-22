@@ -108,3 +108,5 @@ export async function getJobTags() {
     jobsData.forEach(job => job.tagsArray.forEach(tag => allTags.add(tag)));
     return Array.from(allTags).sort();
 }
+
+
