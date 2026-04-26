@@ -144,4 +144,3 @@ export const matchText = (value, term) => normalizeString(value).includes(normal
 export const isExactly = (value, term) => normalizeString(value) === normalizeString(term);
 
 export const containsTag = (tagArray, tag) => tagArray.some(item => normalizeString(item) === normalizeString(tag));
-

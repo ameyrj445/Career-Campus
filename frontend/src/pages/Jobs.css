@@ -8,14 +8,12 @@
   z-index: 1;
 }
 
-
 .jobs-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
   align-content: start;
 }
-
 
 .loading {
   display: flex;
@@ -26,7 +24,6 @@
   font-size: 1.2rem;
   font-weight: bold;
 }
-
 
 .error {
   display: flex;
