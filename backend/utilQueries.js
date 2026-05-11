@@ -74,3 +74,4 @@ export async function searchListings(searchTerm) {
 
     return filteredRows.sort((a, b) => (b.posted_date || '').localeCompare(a.posted_date || ''));
 } 
+
