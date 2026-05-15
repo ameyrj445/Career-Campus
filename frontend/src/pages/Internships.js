@@ -56,4 +56,3 @@ function Internships() {
   );
 }
 export default Internships; 
-
